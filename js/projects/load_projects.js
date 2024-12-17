@@ -1,53 +1,36 @@
-// Function to get query parameter
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
-
-// Load project data dynamically
-document.addEventListener("DOMContentLoaded", () => {
-    const projectId = getQueryParam("project");
-    if (!projectId) {
-        document.getElementById("project-content").innerHTML = "<p>No project specified.</p>";
-        return;
-    }
-
-    // Fetch projects.json to find the correct file
-    fetch('../json/projects.json')
-        .then(response => response.json())
-        .then(projects => {
-            const project = projects.find(p => p.id === projectId);
-            if (project) {
-                loadProjectData(project.json);
-            } else {
-                document.getElementById("project-content").innerHTML = "<p>Project not found.</p>";
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching project list:", error);
-            document.getElementById("project-content").innerHTML = "<p>Error loading project list.</p>";
-        });
-});
-
-// Fetch and display the project details
 function loadProjectData(jsonPath) {
     fetch(jsonPath)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load JSON file: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
-            const project = data[0]; // Assuming single object in JSON array
-            document.title = project.name; // Set the page title
-            document.getElementById("project-title").textContent = project.name;
+            if (!data || !data.length) {
+                document.getElementById("project-content").innerHTML = "<p>No versions available for this project.</p>";
+                return;
+            }
 
-            const content = `
-                <p><strong>Version:</strong> ${project.version}</p>
-                <p><strong>Release Date:</strong> ${project.date}</p>
-                <p><strong>Description:</strong> ${project.description || "No description available."}</p>
-                <a href="${project.link}" class="download-btn" target="_blank">Download</a>
-            `;
+            const projectTitle = data[0].name || "Project Details"; // Set title from the first object
+            document.title = projectTitle;
+            document.getElementById("project-title").textContent = projectTitle;
+
+            // Build content for all versions
+            const content = data.map(version => `
+                <div class="version-card">
+                    <h2>Version: ${version.version}</h2>
+                    <p><strong>Release Date:</strong> ${version.date}</p>
+                    <p><strong>Description:</strong> ${version.description || "No description available."}</p>
+                    <a href="${version.link}" class="download-btn" target="_blank">Download</a>
+                </div>
+            `).join("");
+
+            // Render all content in the main container
             document.getElementById("project-content").innerHTML = content;
         })
         .catch(error => {
-            console.error("Error fetching project data:", error);
+            console.error("Error loading project JSON:", error);
             document.getElementById("project-content").innerHTML = "<p>Failed to load project details.</p>";
         });
 }
