@@ -3,18 +3,18 @@
         "id": "handcricket",
         "name": "HandCricket",
         "summary": "A cricket-themed game accessible for all users.",
-        "detailsPage": "handcricket_page.html"
+        "json":"../json/projects/handcricket.json"
     },
     {
         "id": "screensearch",
         "name": "Screen Search",
-        "summary": "A tool to enhance screen navigation for visually impaired users.",
-        "detailsPage": "screensearch_page.html"
+        "summary": "A Jieshuo's tool to enhance screen navigation for visually impaired users.",
+        "json":"../json/projects/screensearch.json"
     },
     {
-        "id": "encryptlua",
+        "id": "encryptluascripts",
         "name": "Encrypt Lua Scripts",
-        "summary": "A tool to encrypt and secure your Lua scripts effectively.",
-        "detailsPage": "encryptlua_page.html"
+        "summary": "A Jieshuo's tool to encrypt and secure your Lua scripts effectively.",
+        "json":"../json/projects/encryptluascripts.json"
     }
 ]
