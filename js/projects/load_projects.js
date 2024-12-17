@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Construct the path to the JSON file dynamically
-    const jsonPath = `../json/projects/${projectId}.json`;
+    const jsonPath = `/json/projects/${projectId}.json`;
 
     // Call loadProjectData with the constructed path
     loadProjectData(jsonPath);
