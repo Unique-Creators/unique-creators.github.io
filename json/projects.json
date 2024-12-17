@@ -1,0 +1,20 @@
+[
+    {
+        "id": "handcricket",
+        "name": "HandCricket",
+        "summary": "A cricket-themed game accessible for all users.",
+        "detailsPage": "handcricket_page.html"
+    },
+    {
+        "id": "screensearch",
+        "name": "Screen Search",
+        "summary": "A tool to enhance screen navigation for visually impaired users.",
+        "detailsPage": "screensearch_page.html"
+    },
+    {
+        "id": "encryptlua",
+        "name": "Encrypt Lua Scripts",
+        "summary": "A tool to encrypt and secure your Lua scripts effectively.",
+        "detailsPage": "encryptlua_page.html"
+    }
+]

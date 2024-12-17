@@ -3,25 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Resources</title>
+    <title>Download Projects</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .project-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 1rem 0;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .project-card h2 {
+            color: #0056b3;
+            margin-bottom: 0.5rem;
+        }
+        .project-card p {
+            margin-bottom: 1rem;
+        }
+        .learn-btn {
+            display: inline-block;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        .learn-btn:hover {
+            background-color: #003f80;
+        }
+        .search-container {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        .search-container input {
+            padding: 0.5rem;
+            width: 50%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Download Resources</h1>
-        <li><a href="../index.html">Go to home</a></li>
+        <h1>Download Projects</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
-        <div class="container" id="versions">
-            <!-- Versions will be dynamically loaded here -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search for projects..." onkeyup="searchProjects()">
         </div>
+        <section>
+            <div id="projects-container">
+                <!-- Projects will be loaded here dynamically -->
+            </div>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Unique Creators | <a href="https://wa.me/+923475159659" target="_blank">WhatsApp</a> | <a href="https://youtube.com/@UniqueCreatorsOfficial" target="_blank">YouTube</a> | <a href="https://surveyheart.com/form/66b8eb73b27a431064aa6f7e" target="_blank">Register</a> | <a href="mailto:uniquecreators.uniqueboy@gmail.com">Email</a></p>
+        <p>&copy; 2024 Unique Creators | <a href="https://wa.me/+923475159659">WhatsApp</a> | <a href="https://youtube.com/@UniqueCreatorsOfficial">YouTube</a> | <a href="mailto:uniquecreators.uniqueboy@gmail.com">Email</a></p>
     </footer>
 
-    <script src="../js/download_hc.js"></script>
+    <script>
+        let projectsData = [];
+
+        // Fetch and display all projects initially
+        fetch('../json/projects.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to load project data.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                projectsData = data; // Store data globally
+                displayProjects(projectsData); // Display all projects initially
+            })
+            .catch(error => {
+                console.error("Error loading project data:", error);
+                document.getElementById('projects-container').innerHTML = "<p>Failed to load projects. Please try again later.</p>";
+            });
+
+        // Function to display projects
+        function displayProjects(projects) {
+            const container = document.getElementById('projects-container');
+            container.innerHTML = ""; // Clear previous content
+
+            if (projects.length > 0) {
+                projects.forEach(project => {
+                    const projectDiv = document.createElement('div');
+                    projectDiv.classList.add('project-card');
+                    projectDiv.innerHTML = `
+                        <h2>${project.name}</h2>
+                        <p>${project.summary}</p>
+                        <a href="${project.detailsPage}" class="learn-btn">Learn more and Download</a>
+                    `;
+                    container.appendChild(projectDiv);
+                });
+            } else {
+                container.innerHTML = "<p>No projects found.</p>";
+            }
+        }
+
+        // Search mechanism
+        function searchProjects() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const filteredProjects = projectsData.filter(project =>
+                project.name.toLowerCase().includes(searchInput) ||
+                project.summary.toLowerCase().includes(searchInput)
+            );
+            displayProjects(filteredProjects);
+        }
+    </script>
 </body>
 </html>
