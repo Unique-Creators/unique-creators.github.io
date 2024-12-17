@@ -18,7 +18,7 @@ fetch('../json/projects.json')
             projectDiv.innerHTML = `
                 <h2>${project.name}</h2>
                 <p>${project.summary}</p>
-                <a href="${project.detailsPage}" class="learn-btn">Learn more and Download</a>
+                <a href="${project.detailsPage}" class="learn-btn">Learn more and Download ${project.name}</a>
             `;
 
             container.appendChild(projectDiv);
