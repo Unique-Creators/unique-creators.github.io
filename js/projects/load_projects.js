@@ -29,6 +29,7 @@ function loadProjectData(jsonPath) {
                     <h2>Version: ${version.version}</h2>
                     <p><strong>Release Date:</strong> ${version.date}</p>
                     <p><strong>Description:</strong> ${version.description || "No description available."}</p>
+                    <p><strong>How to play:</strong><a href=${version.tatorial}>Comprehensive Explaination - Watch on YouTube Link</a></p>
                     <a href="${version.link}" class="download-btn" target="_blank">Download V${version.version}</a>
                 </div>
             `).join("");
