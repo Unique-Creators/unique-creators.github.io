@@ -1,0 +1,3 @@
+user-agent: *
+allow: /
+sitmap: "https://unique-creators.github.io/sitmap.xml"
