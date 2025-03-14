@@ -1,0 +1,28 @@
+.footer {
+    background-color: #111;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .footer-links a {
+    color: #ddd;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+
+  .logo {
+    background-color: #12ff12;
+    color: #fff;
+    font-size: 1rem;
+  font: 1em sans-serif;
+    margin: 0;
+    text-align: center;
+  }
+  
+
+  .footer-links a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
